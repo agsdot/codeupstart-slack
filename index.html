@@ -17,7 +17,17 @@
         var Chat = React.createClass({
           getInitialState: function() {
             return {
-              name: "anonymous"
+              name: "anonymous",
+               messages: [{
+                 name: 'codeupstart',
+                 time: new Date(),
+                 text: 'Hi there 😘😘 !'
+               },
+               {
+                 name: 'codeupstart',
+                 time: new Date(),
+                 text: 'Welcome to your chat app'
+               }]
             };
           },
           setName: function() {
@@ -26,6 +36,20 @@
 
           },
           render: function() {
+            var messageList = this.state.messages.map(function(message, i) {
+              var text = message.text;
+              return (
+
+              <div key={i} className="message">
+              	<a href={"https://twitter.com/" + message.name + "/"} target="_blank"><img src={"https://twitter.com/" + message.name + "/profile_image"} className="message_profile-pic" /></a>
+                  			<a href={"https://twitter.com/" + message.name + "/"} target="_blank" className="message_username">{message.name}</a>
+              	<span className="message_timestamp">{message.time.toLocaleTimeString()}</span>
+              	<span className="message_content" dangerouslySetInnerHTML={{__html: text}}></span>
+              </div>
+
+              )
+
+            })
             return (
               <div> 
               <div className="header">
@@ -60,19 +84,7 @@
               
                         </span>
                       </div>
-              		<div className="message">
-              			<a href="https://twitter.com/codeupstart/" target="_blank"><img src="https://twitter.com/codeupstart/profile_image" className="message_profile-pic" /></a>
-                      			<a href="https://twitter.com/codeupstart/" target="_blank" className="message_username">codeupstart</a>
-              			<span className="message_timestamp">1:31 PM</span>
-              			<span className="message_content">Hi there! 😘😘</span>
-              		</div>
-              
-              		<div className="message">
-              			<a href="https://twitter.com/codeupstart/" target="_blank"><img src="https://twitter.com/codeupstart/profile_image" className="message_profile-pic" /></a>
-                      			<a href="https://twitter.com/codeupstart/" target="_blank" className="message_username">codeupstart</a>
-              			<span className="message_timestamp">1:31 PM</span>
-              			<span className="message_content">Welcome to your chat app</span>
-              		</div>
+                      {messageList}
                     </div>
               	</div>
               </div>
