@@ -1,24 +1,24 @@
-var React = require('react')
-var ReactDOM = require('react-dom')
-var Messages = require('./Messages')
+var React = require('react');
+var ReactDOM = require('react-dom');
+var Messages = require('./Messages');
+var Channels = require('./Channels');
 
 var Chat = React.createClass({
   getInitialState: function() {
-    return {
-      name: "anonymous",
-       messages: [{
-         name: 'codeupstart',
-         time: new Date(),
-         text: 'Hi there 😘😘 !'
-       },
-       {
-         name: 'codeupstart',
-         time: new Date(),
-         text: 'Welcome to your chat app'
-       }]
-    };
-  },
-  componentDidUpdate: function() {
+      return {
+          name: "anonymous",
+          channels: ['general'],
+          messages: [{
+              name: 'codeupstart',
+              time: new Date(),
+              text: 'Hi there 😘😘 !'
+          }, {
+              name: 'codeupstart',
+              time: new Date(),
+              text: 'Welcome to your chat app'
+          }]
+      };
+  },  componentDidUpdate: function() {
       $('#message-list').scrollTop($('#message-list')[0].scrollHeight);
   },
   setName: function() {
@@ -53,17 +53,7 @@ sendMessage: function(event) {
       </div>
       <div className="main">
       	<div className="listings">
-      	<div className="listings_channels">
-      		<h2 className="listings_header">Channels</h2>
-      		<ul className="channel_list">
-      			<li className="channel active">
-      				<a className="channel_name">
-      					<span className="unread">0</span>
-      					<span><span className="prefix">#</span>general</span>
-      				</a>
-      			</li>
-      		</ul>
-      	</div>
+            <Channels channels={this.state.channels} />
       	<div className="listings_direct-messages"></div>
       	</div>
       	<div className="message-history">
