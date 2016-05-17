@@ -9,6 +9,7 @@
     <script src="https://fb.me/react-15.0.2.js"></script>
     <script src="https://fb.me/react-dom-15.0.2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
 
 	</head>
 	<body>
@@ -30,11 +31,27 @@
                }]
             };
           },
+          componentDidUpdate: function() {
+              $('#message-list').scrollTop($('#message-list')[0].scrollHeight);
+          },
           setName: function() {
             var myName = window.prompt("Please enter a name", "anonymous");
             this.setState({name: myName});
 
           },
+        sendMessage: function(event) {
+          var text = event.target.value;
+          if (event.keyCode === 13 && text !== "") {
+              var message = {
+                  name: this.state.name,
+                  text: text,
+                  time: new Date()
+              }
+                  this.setState({messages: this.state.messages.concat(message)})
+                  $('#msg-input').val('');
+          }
+
+        },
           render: function() {
             var messageList = this.state.messages.map(function(message, i) {
               var text = message.text;
@@ -77,11 +94,11 @@
               	<div className="listings_direct-messages"></div>
               	</div>
               	<div className="message-history">
-              
+
                     <div id="message-list">
                       <div className="time-divide">
                         <span className="date">
-              
+
                         </span>
                       </div>
                       {messageList}
@@ -93,14 +110,12 @@
               		<p className="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>
               	</div>
               	<div className="input-box">
-              		<input type="text" className="input-box_text" />
+              		<input id="msg-input" type="text" className="input-box_text" onKeyDown={this.sendMessage} />
               	</div>
               </div>
               </div>
-            
+
             )
-
-
           }
         })
         ReactDOM.render(<Chat />, document.getElementById('app'));
