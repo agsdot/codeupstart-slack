@@ -5,3 +5,5 @@ npm install reactify
 npm install react react-dom
 
 watchify -t reactify components/Chat.js -o bundle.js -v
+
+npm install react-modal
