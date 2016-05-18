@@ -22,7 +22,7 @@ var Chat = React.createClass({
   getInitialState: function() {
       return {
           name: null,
-          channels: [],
+          channels: {},
           currentChannel: null,
           messages: {}
       };
@@ -56,20 +56,31 @@ var Chat = React.createClass({
       if (!(channelName in this.state.channels)) {
           var messages = this.state.messages;
           messages[channelName] = [];
+          var channels = this.state.channels;
+          channels[channelName] = {unreadCount: 0};
+
           this.setState({
-              channels: this.state.channels.concat(channelName),
+              channels: channels,
               messages: messages
           });
           this.joinChannel(channelName);
           this.chatRooms[channelName] = this.pusher.subscribe(channelName);
           this.chatRooms[channelName].bind('new_message', function(message) {
               var messages = this.state.messages;
+              var channels = this.state.channels;
+
               messages[channelName].push(message);
+              if (channelName !== this.state.currentChannel) {
+                  channels[channelName].unreadCount++;
+              }
               this.setState({ messages: messages });
           }, this);
       }
   },
   joinChannel: function(channelName) {
+      var channels = this.state.channels;
+      channels[channelName].unreadCount = 0;
+
       this.setState({ currentChannel: channelName });
   },
   enterName: function() {
