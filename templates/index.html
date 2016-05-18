@@ -7,6 +7,13 @@
 		<link href="http://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet" type="text/css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+    <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
+    <script>
+      Pusher.log = function(msg) { console.log(msg); }
+      var PUSHER_CHAT_APP_KEY = "{{ config['PUSHER_CHAT_APP_KEY'] }}";
+    </script>
+
+
 
 	</head>
 	<body>

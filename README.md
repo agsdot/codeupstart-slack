@@ -7,3 +7,4 @@ npm install react react-dom
 watchify -t reactify components/Chat.js -o static/bundle.js -v
 
 npm install react-modal
+pip install pusher
