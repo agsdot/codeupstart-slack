@@ -22,6 +22,7 @@ var Chat = React.createClass({
       return {
           name: null,
           channels: ['general'],
+          currentChannel: 'general',
           messages: [{
               name: 'codeupstart',
               time: new Date(),
@@ -47,11 +48,15 @@ var Chat = React.createClass({
             $('#msg-input').val('');
     }
   },
-    createChannel: function(channelName) {
-        if (!(channelName in this.state.channels)) {
-            this.setState({ channels: this.state.channels.concat(channelName)});
-        }
-    },
+  createChannel: function(channelName) {
+      if (!(channelName in this.state.channels)) {
+          this.setState({ channels: this.state.channels.concat(channelName)});
+          this.joinChannel(channelName);
+      }
+  },
+  joinChannel: function(channelName) {
+      this.setState({ currentChannel: channelName });
+  },
   enterName: function() {
       var newName = $('#new-name').val().trim();
       if (newName === "") {
@@ -87,7 +92,12 @@ var Chat = React.createClass({
       </div>
       <div className="main">
       	<div className="listings">
-            <Channels channels={this.state.channels} createChannel={this.createChannel} />
+            <Channels
+                channels={this.state.channels}
+                createChannel={this.createChannel}
+                currentChannel={this.state.currentChannel}
+                joinChannel={this.joinChannel}
+            />
       	<div className="listings_direct-messages"></div>
       	</div>
       	<div className="message-history">
