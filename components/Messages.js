@@ -12,7 +12,7 @@ var Messages = React.createClass({
               <div key={i} className="message">
                   <a href={ "https://twitter.com/" + message.name + "/"} target="_blank"><img src={ "https://twitter.com/" + message.name + "/profile_image"} className="message_profile-pic" /></a>
                   <a href={ "https://twitter.com/" + message.name + "/"} target="_blank" className="message_username">{message.name}</a>
-                  <span className="message_timestamp">{message.time.toLocaleTimeString()}</span>
+                  <span className="message_timestamp">{ new Date(message.time).toLocaleTimeString()}</span>
                   <span className="message_content" dangerouslySetInnerHTML={{__html: text}}></span>
               </div>
           );

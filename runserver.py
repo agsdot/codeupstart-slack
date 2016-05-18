@@ -33,7 +33,7 @@ def new_message():
     channel = request.form['channel']
 
     now = datetime.datetime.now()
-    timestamp = time.mktime(now.tinetuple()) * 1000
+    timestamp = time.mktime(now.timetuple()) * 1000
     pusher_client.trigger(channel, 'new_message', {
         'text': text,
         'name': name,
