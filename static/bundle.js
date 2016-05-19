@@ -120,11 +120,9 @@ var Chat = React.createClass({displayName: "Chat",
       };
   },
   componentWillMount: function() {
-      this.pusher = new Pusher(PUSHER_CHAT_APP_KEY);
       this.chatRooms = {}
   },
   componentDidMount: function() {
-      this.createChannel(DEFAULT_CHANNEL);
   },
   componentDidUpdate: function() {
       $('#message-list').scrollTop($('#message-list')[0].scrollHeight);
@@ -181,7 +179,18 @@ var Chat = React.createClass({displayName: "Chat",
           var randomId = Math.floor((Math.random() * 99) + 1);
           newName = "anonymous" + randomId;
       }
+
+      $.ajax({
+          type: 'POST',
+          url: '/setname/',
+          data: {name: newName},
+          async: false
+      });
+
+      this.pusher = new Pusher(PUSHER_CHAT_APP_KEY, { authEndpoint: '/pusher/auth/' });
       this.setState({name: newName});
+
+      this.createChannel(DEFAULT_CHANNEL);
   },
   onEnter: function(event) {
       if (event.nativeEvent.keyCode !== 13) return;
