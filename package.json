@@ -1,0 +1,25 @@
+{
+  "name": "clack",
+  "version": "1.0.0",
+  "description": "Some commands to run in the shell. Probably can be and should be put into a grunt / gulp / etc build tool script, but here goes:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agsdot/codeupstart-slack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agsdot/codeupstart-slack/issues"
+  },
+  "homepage": "https://github.com/agsdot/codeupstart-slack#readme",
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "react-modal": "^1.3.0",
+    "reactify": "^1.1.1"
+  }
+}
